@@ -1,0 +1,15 @@
+acme_store_homepage:
+    path:     /store/
+    defaults: { _controller: AcmeStoreBundle:Default:index }
+
+find:
+    path: /find/{id}
+    defaults: { _controller: AcmeStoreBundle:Default:find }
+
+complex_find:
+    path: /complex_find
+    defaults: { _controller: AcmeStoreBundle:Default:complexFind }
+
+use_repository:
+    path: /use_repository
+    defaults: { _controller: AcmeStoreBundle:Default:useRepository }
