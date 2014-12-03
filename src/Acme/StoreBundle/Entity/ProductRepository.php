@@ -13,6 +13,8 @@ class ProductRepository extends EntityRepository
 {
     public function findAllOrderByName()
     {
+        return $this->findAll();
+
         return $this->getEntityManager()->createQuery(
             'select p from AcmeStoreBundle:Product p order by p.name ASC'
         )->getResult();

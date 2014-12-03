@@ -3,12 +3,16 @@
 namespace Acme\StoreBundle\Controller;
 
 use Acme\StoreBundle\Entity\Product;
+use Acme\StoreBundle\Entity\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Registry;
+
+use \ReflectionClass as ReflectionClass;
 
 /**
  * Class DefaultController
@@ -79,12 +83,25 @@ class DefaultController extends Controller
 
     public function useRepositoryAction()
     {
-        $doctrine = $this->getDoctrine();
-        pre(get_class($doctrine));
-        $em = $this->getDoctrine()->getManager();
-        echo get_class($em);
-        $products = $em->getRepository('AcmeStoreBundle:Product')->findAll();
-        pre($products,'$products');
+        /** @var ProductRepository $repo */
+        $repo = $this->getDoctrine()->getManager()->getRepository('AcmeStoreBundle:Product');
+        $products = $repo->findAllOrderByName();
+        pre($products);
+
+//        /** @var Registry $doctrine */
+//        $doctrine = $this->getDoctrine();
+//
+//        /** @var EntityManager $em */
+//        $em = $doctrine->getManager();
+//
+//        /** @var Product[] $products */
+//        $products = $em->getRepository('AcmeStoreBundle:Product')->findAll();
+//
+//        foreach($products as $product){
+//            $reflection = new ReflectionClass($product);
+//            pre($product, $reflection->getName().' ('.$reflection->getShortName().')');
+//        }
+
         return new Response();
     }
 }
